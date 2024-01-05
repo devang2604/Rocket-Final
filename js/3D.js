@@ -5,6 +5,7 @@ import { DRACOLoader } from "/js/DRACOLoader.js";
 import Stats from "/js/stats.module.js";
 import { MeshSurfaceSampler } from "/js/MeshSurfaceSampler.js";
 import { TWEEN } from "/js/tween.module.min.js";
+import { createParticles } from './particles.js';
 
 /**
  * Debug
@@ -288,7 +289,7 @@ var mixer2;
 var action2;
 gltfLoader.load("/models/rocket.glb", function (gltf) {
   cyclist = gltf.scene;
-  cyclist.scale.set(0.005, 0.005, 0.005);
+  cyclist.scale.set(0.0025, 0.0025, 0.0025);
 
   //Playing Animation
   mixer2 = new THREE.AnimationMixer(cyclist);
@@ -355,7 +356,7 @@ var action5;
 
 // Camera
 const camera = new THREE.PerspectiveCamera(
-  64,
+  25,
   sizes.width / sizes.height,
   1,
   90
@@ -367,8 +368,8 @@ scene.add(camera);
 const controls = new OrbitControls(camera, canvas);
 controls.target.set(0, 0, 0);
 controls.enablePan = false;
-controls.minPolarAngle = Math.PI / 2.4;
-controls.maxPolarAngle = Math.PI / 2.15;
+controls.minPolarAngle = Math.PI / 2.15;
+controls.maxPolarAngle = Math.PI / 2.10;
 controls.minDistance = 16;
 controls.maxDistance = 30;
 controls.enableDamping = true;
@@ -415,7 +416,7 @@ document.getElementById("start-button").onclick = function () {
   document.getElementById("loadingscreen").classList.add("hidden");
 
   new TWEEN.Tween(camera.position)
-    .to({ x: 0, y: 3, z: 16 }, 1000)
+    .to({ x: 0, y: 1.2, z: 16 }, 1000)
     .easing(TWEEN.Easing.Cubic.Out)
     .start();
 };
@@ -459,6 +460,8 @@ spotLight.shadow.camera.far = 2;
 spotLight.shadow.normalBias = 0.02;
 scene.add(spotLight);
 scene.add(spotLight.target);
+
+createParticles(scene);
 
 // const helper2 = new THREE.CameraHelper( spotLight.shadow.camera );
 // scene.add( helper2 );
