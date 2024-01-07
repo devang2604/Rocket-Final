@@ -1,4 +1,4 @@
-var btn = document.querySelectorAll(".primary");
+var btn = document.querySelectorAll(".button");
 var modals = document.querySelectorAll('.modal');
 var X = document.getElementsByClassName("button-round close");
 var menu = document.getElementById("menu");

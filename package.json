@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "react-tsparticles": "^2.12.2",
-    "three": "^0.160.0"
+    "three": "^0.160.0",
+    "vanilla": "^0.0.5"
   },
   "devDependencies": {
     "vite": "^5.0.10"
