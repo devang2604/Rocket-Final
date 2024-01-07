@@ -138,6 +138,30 @@ gltfLoader.load("/models/galaxy.glb", function (gltf) {
   mug2.position.set(-3.0, 5, -20);
 });
 
+var mixer7;
+var action7;
+gltfLoader.load(
+    '/models/purple_planet.glb', function(gltf){
+        var purple = gltf.scene;
+
+        purple.scale.set(.5,.5,.5);
+        purple.rotation.y = Math.PI/2;
+        purple.position.set(-7, 0.3, -5);
+
+        mixer7 = new THREE.AnimationMixer( purple );
+        action7 = mixer7.clipAction( gltf.animations[ 0 ] );
+        action7.timeScale = 1;
+        action7.play();
+
+        gltf.scene.traverse( function( node ) {
+            if ( node.isMesh ) {
+                node.castShadow = true;
+                node.receiveShadow = true;
+            }
+        } );
+        scene.add(purple);
+});
+
 var mug3;
 // gltfLoader.load("/models/spacecenter.glb", function (gltf) {
 //   mug3 = gltf.scene;
@@ -236,7 +260,7 @@ gltfLoader.load(
 
         stag.scale.set(.5,.5,.5);
         stag.rotation.y = Math.PI/2;
-        stag.position.set(.7, .5, 10);
+        stag.position.set(.7, .7, 10);
 
         mixer4 = new THREE.AnimationMixer( stag );
         action4 = mixer4.clipAction( gltf.animations[ 0 ] );
@@ -498,6 +522,7 @@ const tick = () => {
   if (mixer2) mixer2.update(delta);
   if (mixer3) mixer3.update(delta);
   if (mixer4) mixer4.update(delta);
+  if (mixer7) mixer7.update(delta);
   if (mixer5) mixer5.update(delta);
 
   scrollSpeed();
