@@ -50,116 +50,178 @@ const gltfLoader = new GLTFLoader(loadingManager);
 gltfLoader.setDRACOLoader(dracoLoader);
 
 // Models
+
 var island;
-
-gltfLoader.load("/models/text.glb", function (gltf) {
-  gltf.scene.traverse((obj) => {
-    if (obj.isMesh) {
-      sampler = new MeshSurfaceSampler(obj).build();
-    }
-  });
-  transformMesh();
-  // scene.add(gltf.scene);
-});
-let sampler;
-let uniforms = { mousePos: { value: new THREE.Vector3() } };
-let pointsGeometry = new THREE.BufferGeometry();
-const vertices = [];
-const tempPosition = new THREE.Vector3();
-
-function transformMesh() {
-  for (let i = 0; i < 30000; i++) {
-    sampler.sample(tempPosition);
-    vertices.push(tempPosition.x - 3.4, -tempPosition.z + 1.3, tempPosition.y);
-  }
-  pointsGeometry.setAttribute(
-    "position",
-    new THREE.Float32BufferAttribute(vertices, 3)
-  );
-  const pointsMaterial = new THREE.PointsMaterial({
-    color: 0xff6A0DAD,
-    size: 0.1,
-    blending: THREE.AdditiveBlending,
-    transparent: true,
-    opacity: 0.2,
-    depthWrite: false,
-    sizeAttenuation: true,
-  });
-  pointsMaterial.onBeforeCompile = function (shader) {
-    shader.uniforms.mousePos = uniforms.mousePos;
-
-    shader.vertexShader = `
-              uniform vec3 mousePos;
-              varying float vNormal;
-              
-              ${shader.vertexShader}`.replace(
-      `#include <begin_vertex>`,
-      `#include <begin_vertex>   
-                  vec3 seg = position - mousePos;
-                  vec3 dir = normalize(seg);
-                  float dist = length(seg);
-              `
-    );
-  };
-
-  const points = new THREE.Points(pointsGeometry, pointsMaterial);
-  scene.add(points);
-}
-
-// var mug;
-// gltfLoader.load("/models/controlpanel.glb", function (gltf) {
-//   mug = gltf.scene;
-//   gltf.scene.traverse(function (node) {
-//     if (node.isMesh) {
-//       node.castShadow = true;
-//       node.receiveShadow = true;
-//     }
-//   });
-//   scene.add(mug);
-//   mug.scale.set(0.06, 0.06, 0.06);
-//   mug.position.set(.7, .8, 13);
-// });
-
-var mug2;
-gltfLoader.load("/models/galaxy.glb", function (gltf) {
-  mug2 = gltf.scene;
+gltfLoader.load("/models/banner.glb", function (gltf) {
+  island = gltf.scene;
   gltf.scene.traverse(function (node) {
     if (node.isMesh) {
       node.castShadow = true;
       node.receiveShadow = true;
     }
   });
-  scene.add(mug2);
-  
-  mug2.rotation.x = Math.PI / 4; // Adjust the angle as needed
-  mug2.rotation.y = Math.PI / 2;
-  mug2.rotation.z = Math.PI / 2;
-  mug2.scale.set(0.5, 0.5, 0.5);
-  mug2.position.set(-3.0, 5, -20);
+  scene.add(island);
+  island.scale.set(.7, .7, .7);
+  island.position.set(0,1.5,0);
 });
 
-var mixer7;
-var action7;
-gltfLoader.load(
-    '/models/purple_planet.glb', function(gltf){
-        var purple = gltf.scene;
+var saturn;
+gltfLoader.load("/models/galaxy.glb", function (gltf) {
+  saturn = gltf.scene;
+  gltf.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.receiveShadow = true;
+    }
+  });
+  scene.add(saturn);
 
-        purple.scale.set(.5,.5,.5);
-        purple.rotation.y = Math.PI/2;
-        purple.position.set(-7, 0.3, -5);
+  saturn.rotation.x = Math.PI / 4; // Adjust the angle as needed
+  saturn.rotation.y = Math.PI / 2;
+  saturn.rotation.z = Math.PI / 2;
+  saturn.scale.set(0.5, 0.5, 0.5);
+  saturn.position.set(-3.0, 5, -20);
+});
 
-        mixer7 = new THREE.AnimationMixer( purple );
-        action7 = mixer7.clipAction( gltf.animations[ 0 ] );
-        action7.timeScale = 1;
-        action7.play();
+var saturn;
+gltfLoader.load("/models/galaxy.glb", function (gltf) {
+  saturn = gltf.scene;
+  gltf.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.receiveShadow = true;
+    }
+  });
+  scene.add(saturn);
 
-        gltf.scene.traverse( function( node ) {
-            if ( node.isMesh ) {
-                node.castShadow = true;
-                node.receiveShadow = true;
-            }
-        } );
-        scene.add(purple);
+  saturn.rotation.x = Math.PI / 5; // Adjust the angle as needed
+  saturn.rotation.y = Math.PI / 2;
+  saturn.rotation.z = Math.PI / 2;
+  saturn.scale.set(0.35, 0.35, 0.35);
+  saturn.position.set(-12.0, -8, -22);
+});
+
+var mixer0;
+var action0;
+var portal;
+// gltfLoader.load("/models/spacecenter.glb", function (gltf) {
+//   portal = gltf.scene;
+//   gltf.scene.traverse(function (node) {
+//     if (node.isMesh) {
+//       node.castShadow = true;
+//       node.receiveShadow = true;
+//     }
+//   });
+//   // mixer0 = new THREE.AnimationMixer(portal);
+//   // action0 = mixer0.clipAction(gltf.animations[0]);
+//   // action0.timeScale = 0.7;
+//   // action0.play();
+
+//   scene.add(portal);
+//   portal.scale.set(.06, .01, .06);
+//   portal.position.set(0, 0, 0);
+// });
+
+var mixer8;
+var action8;
+gltfLoader.load("/models/voyager.glb", function (gltf) {
+  var station2 = gltf.scene;
+  station2.scale.set(0.2, 0.2, 0.2);
+  // station2.rotation.y = Math.PI/4;
+  // station2.rotation.z = -Math.PI/6;
+  station2.position.set(6, -0.8, -4);
+
+  gltf.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.receiveShadow = true;
+    }
+  });
+  scene.add(station2);
+});
+
+gltfLoader.load("/models/station3.glb", function (gltf) {
+  var james = gltf.scene;
+  james.scale.set(0.35, 0.35, 0.35);
+  // james.rotation.y = -Math.PI/2;
+  // james.rotation.z = -Math.PI/6;
+  james.position.set(-2.5, 0, -8);
+
+  gltf.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.receiveShadow = true;
+    }
+  });
+  scene.add(james);
+});
+
+var saturn;
+gltfLoader.load("/models/saturn.glb", function (gltf) {
+  saturn = gltf.scene;
+  gltf.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.receiveShadow = true;
+    }
+  });
+  scene.add(saturn);
+
+  saturn.rotation.x = Math.PI / 2; // Adjust the angle as needed
+  saturn.rotation.y = Math.PI / 3;
+  saturn.rotation.z = Math.PI / 2;
+  saturn.scale.set(0.3, 0.3, 0.3);
+  saturn.position.set(10.0, 5, -30);
+});
+
+var mixer11;
+var action11;
+// gltfLoader.load("/models/alien_planet.glb", function (gltf) {
+//   var purple = gltf.scene;
+
+//   purple.scale.set(0.4, 0.4, 0.4);
+//   // purple.rotation.y = Math.PI/2;
+//   purple.rotation.y = -Math.PI / 6;
+//   purple.position.set(-8, 0, 0);
+
+//   mixer11 = new THREE.AnimationMixer(purple);
+//   action11 = mixer11.clipAction(gltf.animations[0]);
+//   action11.timeScale = 2;
+//   action11.play();
+
+//   gltf.scene.traverse(function (node) {
+//     if (node.isMesh) {
+//       node.castShadow = true;
+//       node.receiveShadow = true;
+//     }
+//   });
+//   scene.add(purple);
+// });
+
+var mixer10;
+var action10;
+gltfLoader.load("/models/astronaut.glb", function (gltf) {
+  var purple = gltf.scene;
+
+  purple.scale.set(0.4, 0.4, 0.4);
+  // purple.rotation.y = Math.PI/2;
+  purple.rotation.y = Math.PI / 3;
+  purple.position.set(5, 0, 4);
+
+  mixer10 = new THREE.AnimationMixer(purple);
+  action10 = mixer10.clipAction(gltf.animations[0]);
+  action10.timeScale = 0.5;
+  action10.play();
+
+  gltf.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.receiveShadow = true;
+    }
+  });
+  scene.add(purple);
+  var ambientLight = new THREE.AmbientLight(0xfffdfeff, 1.5);
+  scene.add(ambientLight);
 });
 
 var mug3;
@@ -233,14 +295,14 @@ var action;
 var cyclist;
 var mixer2;
 var action2;
-gltfLoader.load("/models/rocket.glb", function (gltf) {
+gltfLoader.load("/models/man.glb", function (gltf) {
   cyclist = gltf.scene;
-  cyclist.scale.set(0.0025, 0.0025, 0.0025);
+  cyclist.scale.set(.7, .7, .7);
 
-  //Playing Animation
+  // Playing Animation
   mixer2 = new THREE.AnimationMixer(cyclist);
   action2 = mixer2.clipAction(gltf.animations[0]);
-  action2.timeScale = 0;
+  action2.timeScale = 1;
   action2.play();
 
   gltf.scene.traverse(function (node) {
@@ -249,31 +311,33 @@ gltfLoader.load("/models/rocket.glb", function (gltf) {
       node.receiveShadow = true;
     }
   });
+  var ambientLight = new THREE.AmbientLight(0xffeedd82, .5);
+  scene.add(ambientLight);
+
   scene.add(cyclist);
 });
 
-var mixer4;
-var action4;
-gltfLoader.load(
-    '/models/planet1.glb', function(gltf){
-        var stag = gltf.scene;
+var mixer8;
+var action8;
+gltfLoader.load("/models/planet1.glb", function (gltf) {
+  var stag = gltf.scene;
 
-        stag.scale.set(.5,.5,.5);
-        stag.rotation.y = Math.PI/2;
-        stag.position.set(.7, .7, 10);
+  stag.scale.set(1, 1, 1);
+  stag.rotation.y = Math.PI / 2;
+  stag.position.set(-6, 0, 0);
 
-        mixer4 = new THREE.AnimationMixer( stag );
-        action4 = mixer4.clipAction( gltf.animations[ 0 ] );
-        action4.timeScale = 1;
-        action4.play();
+  mixer8 = new THREE.AnimationMixer(stag);
+  action8 = mixer8.clipAction(gltf.animations[0]);
+  action8.timeScale = 1;
+  action8.play();
 
-        gltf.scene.traverse( function( node ) {
-            if ( node.isMesh ) {
-                node.castShadow = true;
-                node.receiveShadow = true;
-            }
-        } );
-        scene.add(stag);
+  gltf.scene.traverse(function (node) {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.receiveShadow = true;
+    }
+  });
+  scene.add(stag);
 });
 
 var robot;
@@ -307,12 +371,12 @@ const camera = new THREE.PerspectiveCamera(
   1,
   90
 );
-camera.position.set(0, 30, 30);
+camera.position.set(0, 30, 10);
 scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
-controls.target.set(0, 0, 0);
+controls.target.set(0, -1, 0);
 controls.enablePan = false;
 controls.minPolarAngle = Math.PI / 2.15;
 controls.maxPolarAngle = Math.PI / 2.1;
@@ -362,7 +426,7 @@ document.getElementById("start-button").onclick = function () {
   document.getElementById("loadingscreen").classList.add("hidden");
 
   new TWEEN.Tween(camera.position)
-    .to({ x: 0, y: 1.2, z: 16 }, 1000)
+    .to({ x: 0, y: 1, z: 16 }, 1000)
     .easing(TWEEN.Easing.Cubic.Out)
     .start();
 };
@@ -395,7 +459,7 @@ scene.add(sunLight.target);
 // const helper = new THREE.CameraHelper( sunLight.shadow.camera );
 // scene.add( helper );
 
-const spotLight = new THREE.SpotLight(0xff6A0DAD, 4, 6, Math.PI / 4, 1, 1);
+const spotLight = new THREE.SpotLight(0xff6a0dad, 4, 6, Math.PI / 4, 1, 1);
 spotLight.position.set(0, 3.5, 0);
 spotLight.visible = false;
 spotLight.castShadow = false;
@@ -519,10 +583,12 @@ const tick = () => {
   // Animation Mixer
   const delta = clock.getDelta();
   if (mixer) mixer.update(delta);
+  if (mixer0) mixer0.update(delta);
   if (mixer2) mixer2.update(delta);
+  if (mixer11) mixer11.update(delta);
   if (mixer3) mixer3.update(delta);
-  if (mixer4) mixer4.update(delta);
-  if (mixer7) mixer7.update(delta);
+  if (mixer8) mixer8.update(delta);
+  if (mixer10) mixer10.update(delta);
   if (mixer5) mixer5.update(delta);
 
   scrollSpeed();
