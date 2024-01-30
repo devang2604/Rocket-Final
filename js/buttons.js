@@ -21,11 +21,3 @@ for (var index in modals) {
 }
 }
 }
-
-function copy() {
-  // Copy the text inside the text field
-  navigator.clipboard.writeText("joshua.vonhofen@gmail.com")  .then(() => alert("E-mail copied!"));
-  
-  // Alert the copied text
-  //alert("E-mail copied!");
-}

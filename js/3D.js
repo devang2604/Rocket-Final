@@ -239,71 +239,21 @@ var mug3;
 // });
 
 var mixer3;
-var action3;
-// gltfLoader.load("/models/joshua.glb", function (gltf) {
-//   var joshua = gltf.scene;
 
-//   //Playing Animation
-//   mixer3 = new THREE.AnimationMixer(joshua);
-//   action3 = mixer3.clipAction(gltf.animations[0]);
-//   action3.timeScale = 1;
-//   action3.play();
-
-//   gltf.scene.traverse(function (node) {
-//     if (node.isMesh) {
-//       node.castShadow = true;
-//       node.receiveShadow = true;
-//     }
-//   });
-//   scene.add(joshua);
-//   joshua.scale.set(1, 1, 1);
-//   joshua.position.set(-3.5, 0, 10);
-//   joshua.rotation.y = 0;
-// });
-// for (let i = 0; i < 4; i++) {
-//   gltfLoader.load("/models/among.glb", function (gltf) {
-//     var man = gltf.scene;
-//     man.scale.set(0.49, 0.49, 0.49);
-
-//     // Add a constant offset to create space between instances
-//     var offsetX = i * 0.2; // Adjust this value to control the spacing
-//     var offsetZ = i * 0.24; // Adjust this value to control the spacing
-
-//     man.position.set(
-//       -8.5 + Math.random() * 2 + offsetX,
-//       -0.01,
-//       4.5 + Math.random() * 2 + offsetZ
-//     );
-
-//     man.rotation.y = Math.random() * 20;
-
-//     gltf.scene.traverse(function (node) {
-//       if (node.isMesh) {
-//         node.castShadow = true;
-//         node.receiveShadow = true;
-//       }
-//     });
-
-//     scene.add(man);
-//   });
-// }
-
-var clapper;
 var mixer;
-var action;
 
 var cyclist;
 var mixer2;
 var action2;
-gltfLoader.load("/models/man.glb", function (gltf) {
+gltfLoader.load("/models/toy_rocket.glb", function (gltf) {
   cyclist = gltf.scene;
-  cyclist.scale.set(.7, .7, .7);
+  cyclist.scale.set(1.5, 1.5, 1.5);
 
   // Playing Animation
-  mixer2 = new THREE.AnimationMixer(cyclist);
-  action2 = mixer2.clipAction(gltf.animations[0]);
-  action2.timeScale = 1;
-  action2.play();
+  // mixer2 = new THREE.AnimationMixer(cyclist);
+  // action2 = mixer2.clipAction(gltf.animations[0]);
+  // action2.timeScale = 1;
+  // action2.play();
 
   gltf.scene.traverse(function (node) {
     if (node.isMesh) {
@@ -366,22 +316,22 @@ var action5;
 
 // Camera
 const camera = new THREE.PerspectiveCamera(
-  25,
+  40,
   sizes.width / sizes.height,
   1,
   90
 );
-camera.position.set(0, 30, 10);
+camera.position.set(0, 30, 30);
 scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
-controls.target.set(0, -1, 0);
+controls.target.set(0, 0, 0);
 controls.enablePan = false;
 controls.minPolarAngle = Math.PI / 2.15;
 controls.maxPolarAngle = Math.PI / 2.1;
-controls.minDistance = 16;
-controls.maxDistance = 30;
+controls.minDistance = 15;
+controls.maxDistance = 20;
 controls.enableDamping = true;
 controls.rotateSpeed = 0.25;
 
@@ -426,7 +376,7 @@ document.getElementById("start-button").onclick = function () {
   document.getElementById("loadingscreen").classList.add("hidden");
 
   new TWEEN.Tween(camera.position)
-    .to({ x: 0, y: 1, z: 16 }, 1000)
+    .to({ x: 0, y: 1.2, z: 16 }, 3000)
     .easing(TWEEN.Easing.Cubic.Out)
     .start();
 };
