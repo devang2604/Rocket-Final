@@ -4,16 +4,17 @@
 }
 
 #loadingscreen {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   display: flex;
   background: #111;
-  background: radial-gradient(circle at center, #542bec 0%, #000 100%);
+  background: radial-gradient(circle at center, #27146c 0%, #000 100%);
   z-index: 1500;
   color: white;
   justify-content: center;
   align-items: center;
-  perspective: 500px;
+  perspective: 31.25rem;
 }
 
 #loader-wrapper {
@@ -21,6 +22,8 @@
   grid-template-rows: repeat(20, 5vh);
   grid-template-columns: repeat(20, 5vw);
   transform-style: preserve-3d;
+  height: 100%;
+  width: 100%;
 }
 
 #progress {
@@ -72,6 +75,23 @@
 }
 
 @media only screen and (max-width: 600px) {
+  #progress,
+  .cta {
+    width: 100%;
+    margin: 0; /* Remove margin for smaller screens */
+  }
+  
+  #progress {
+    margin: 2rem 0; /* Adjust margin for smaller screens */
+  }
+  
+  #loader-wrapper {
+    grid-template-rows: repeat(10, 10vh); /* Adjust grid rows for smaller screens */
+    grid-template-columns: repeat(10, 10vw); /* Adjust grid columns for smaller screens */
+  }
+}
+
+@media only screen and (max-width: 600px) {
   .cta {
     width: 100%;
   }
@@ -83,7 +103,8 @@
 body {
   background: #111;
   background: radial-gradient(circle at center, #111 0%, #000 100%);
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -102,6 +123,8 @@ body {
   color: #CE8DBF;
   font-family: batmanForever;
   font-size: 4rem;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 @keyframes attention {

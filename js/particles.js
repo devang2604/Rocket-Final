@@ -9,7 +9,7 @@ export function createParticles(scene) {
 
   const particlesPositions = [];
 
-  for (let i = 0; i < 5000; i++) {
+  for (let i = 0; i < 8000; i++) {
     const x = (Math.random() - 0.5) * 20;
     const y = Math.random() * 10 - 5;
     const z = (Math.random() - 0.5) * 20;
